@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blog_club/home.dart';
+import 'package:flutter_blog_club/onboarding.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SplashScreen extends StatefulWidget{
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(Duration(seconds: 3)).then((value) {
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>OnBoardingScreen()));
     },); 
   }
 
