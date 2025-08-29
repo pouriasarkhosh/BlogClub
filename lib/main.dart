@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blog_club/data.dart';
@@ -51,6 +52,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -78,8 +80,86 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             _Story(),
+            SizedBox(height: 32),
+            _Category(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _Category extends StatelessWidget {
+  final categoryDb = AppDatabase.categories;
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      itemCount: categoryDb.length,
+      itemBuilder: (context, index, realindex) {
+        final category = categoryDb[index];
+        return Stack(
+          children: [
+            Positioned(
+              left: 40,
+              right: 40,
+              top: 50,
+              bottom: 16,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(255, 82, 74, 74),
+                      
+                      blurRadius: 15,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: 350,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(28),
+              ),
+              foregroundDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(28),
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.center,
+                  colors: [
+                    Color(0xff0D253C),
+                    Color(0xaa0D253C),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(28),
+                child: Image.asset(
+                  'assets/img/posts/large/${category.imageFileName}',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 60,
+              left: 30,
+              child: Text(
+                category.title,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge!.apply(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
+      options: CarouselOptions(
+        scrollDirection: Axis.horizontal,
+        aspectRatio: 1.2,
+        viewportFraction: 0.7,
+        enlargeCenterPage: true,
       ),
     );
   }
@@ -102,11 +182,18 @@ class _Story extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                story.isViewed? _viewedStoryItems(themeData, story):  _storyItems(themeData, story),
+                  story.isViewed
+                      ? _viewedStoryItems(themeData, story)
+                      : _storyItems(themeData, story),
                   Positioned(
                     right: 0,
                     bottom: 0,
-                    child: Image.asset('assets/img/icons/${story.iconFileName}',width: 24,height: 24,))
+                    child: Image.asset(
+                      'assets/img/icons/${story.iconFileName}',
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 4),
@@ -120,59 +207,55 @@ class _Story extends StatelessWidget {
 
   Widget _storyItems(ThemeData themeData, StoryData story) {
     return Container(
-                  margin: EdgeInsets.all(5),
-                  width: 68,
-                  height: 68,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Color(0xff9CECFB),
-                        Color(0xff49B0E2),
-                        Color(0xff376AED),
-                      ],
-                    ),
-                  ),
-                
-                  child: Container(
-                    margin: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(22),
-                      color: themeData.scaffoldBackgroundColor,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(18),
-                        child: Image.asset(
-                          'assets/img/stories/${story.imageFileName}',
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-  }
-}
- Widget _viewedStoryItems(ThemeData themeData, StoryData story) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: DottedBorder(
-        options: RoundedRectDottedBorderOptions(
-            
-          padding: EdgeInsets.all(6),
-          radius: Radius.circular(24),
-          strokeWidth: 2,
-          color: Color(0xff7B8BB2),
-          dashPattern: [7-3]
+      margin: EdgeInsets.all(5),
+      width: 68,
+      height: 68,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [Color(0xff9CECFB), Color(0xff49B0E2), Color(0xff376AED)],
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(18),
-          child: Image.asset(
-            'assets/img/stories/${story.imageFileName}',width: 54,height: 54,
+      ),
+
+      child: Container(
+        margin: EdgeInsets.all(2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(22),
+          color: themeData.scaffoldBackgroundColor,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Image.asset('assets/img/stories/${story.imageFileName}'),
           ),
         ),
       ),
     );
   }
+}
+
+Widget _viewedStoryItems(ThemeData themeData, StoryData story) {
+  return Padding(
+    padding: const EdgeInsets.all(5.0),
+    child: DottedBorder(
+      options: RoundedRectDottedBorderOptions(
+        padding: EdgeInsets.all(6),
+        radius: Radius.circular(24),
+        strokeWidth: 2,
+        color: Color(0xff7B8BB2),
+        dashPattern: [7 - 3],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(18),
+        child: Image.asset(
+          'assets/img/stories/${story.imageFileName}',
+          width: 54,
+          height: 54,
+        ),
+      ),
+    ),
+  );
+}
