@@ -91,7 +91,7 @@ class _Posts extends StatelessWidget {
               child: Image.asset('assets/img/posts/small/${post.imageFileName}')),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -102,8 +102,8 @@ class _Posts extends StatelessWidget {
                       SizedBox(height: 12,),
                       Row(
                         children: [
-                          Icon(CupertinoIcons.hand_thumbsup,size: 16,),SizedBox(width: 4,),Text(post.likes,style: themeData.textTheme.bodyMedium!.apply(fontSizeFactor: 0.8),),SizedBox(width: 8,),
-                          Icon(CupertinoIcons.clock,size: 16,),SizedBox(width: 4,),Text(post.time,style: themeData.textTheme.bodyMedium!.apply(fontSizeFactor: 0.8)),
+                          Icon(CupertinoIcons.hand_thumbsup,size: 14,),SizedBox(width: 4,),Text(post.likes,style: themeData.textTheme.bodyMedium!.apply(fontSizeFactor: 0.6),),SizedBox(width: 8,),
+                          Icon(CupertinoIcons.clock,size: 14,),SizedBox(width: 4,),Text(post.time,style: themeData.textTheme.bodyMedium!.apply(fontSizeFactor: 0.6)),
                           Expanded(child: Icon(post.isBookmarked?CupertinoIcons.bookmark_fill: CupertinoIcons.bookmark,size: 16,color: Colors.blue,))
                         ],
                       )
