@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blog_club/splash.dart';
+import 'package:flutter_blog_club/home.dart';
+import 'package:flutter_blog_club/navigator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xffFAFBFF),
-        colorScheme: ColorScheme.light(brightness: Brightness.light, primary: Colors.blue, onPrimary: Colors.white),
+        colorScheme: ColorScheme.light(brightness: Brightness.light, primary: Color(0xff376AED), onPrimary: Colors.white),
         textTheme: TextTheme(
           bodyLarge: TextStyle(
             fontFamily: defualtFontFamily,
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
 
           displayMedium: TextStyle(
             fontFamily: defualtFontFamily,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w700,
             color: Colors.blue,
             fontSize: 16
           ),
@@ -51,9 +52,22 @@ class MyApp extends StatelessWidget {
             color: Colors.black,
             fontSize: 14
           ),
+          labelSmall: TextStyle(
+            fontFamily: defualtFontFamily,
+            fontSize: 10,
+            color: Color(0xff0047CC),
+            fontWeight: FontWeight.bold
+          )
         ),
       ),
-      home: const SplashScreen(),
+      home: Stack(
+        children: [
+          const HomeScreen(),
+          Positioned(
+            bottom: 0,right: 0,left: 0,
+            child: MyNavigatorBar())
+        ],
+      ),
     );
   }
 }

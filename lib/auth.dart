@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog_club/home.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 24, 0, 24),
+                      padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -125,7 +126,7 @@ class _Login extends StatelessWidget {
         _Password(themeData: themeData),
         SizedBox(height: 30),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen()));},
           style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(Colors.blue),
             minimumSize: WidgetStatePropertyAll(Size(double.infinity, 60)),
@@ -216,7 +217,7 @@ class _SignUp extends StatelessWidget {
         _Password(themeData: themeData),
         SizedBox(height: 30),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen()));},
           style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(Colors.blue),
             minimumSize: WidgetStatePropertyAll(Size(double.infinity, 60)),
