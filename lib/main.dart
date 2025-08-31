@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xffFAFBFF),
+        colorScheme: ColorScheme.light(brightness: Brightness.light, primary: Colors.blue, onPrimary: Colors.white),
         textTheme: TextTheme(
           bodyLarge: TextStyle(
             fontFamily: defualtFontFamily,
@@ -43,7 +44,13 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w900,
             color: Colors.blue,
             fontSize: 16
-          )
+          ),
+          displaySmall: TextStyle(
+            fontFamily: defualtFontFamily,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+            fontSize: 14
+          ),
         ),
       ),
       home: const SplashScreen(),
