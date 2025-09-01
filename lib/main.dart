@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blog_club/home.dart';
-import 'package:flutter_blog_club/navigator.dart';
+
+import 'package:flutter_blog_club/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
           const HomeScreen(),
           Positioned(
             bottom: 0,right: 0,left: 0,
-            child: MyNavigatorBar())
+            child: SplashScreen())
         ],
       ),
     );

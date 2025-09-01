@@ -220,8 +220,10 @@ class MenuScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Container(decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(28),topRight: Radius.circular(28))
+
+            SizedBox(height: 32,),
+            Container(decoration: BoxDecoration(color: Colors.white,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(28),topRight: Radius.circular(28)),boxShadow: [BoxShadow(color: Colors.black12,blurRadius: 2)]
             ),
             child: Column(
               children: [

@@ -5,8 +5,40 @@ import 'package:flutter_blog_club/home.dart';
 import 'package:flutter_blog_club/menu.dart';
 import 'package:flutter_blog_club/search.dart';
 
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+
+final int homeIndex=0;
+final int articleIndex=1;
+final int searchIndex=2;
+final int menuIndex=3;
+class _MainScreenState extends State<MainScreen> {
+
+  int defaultSelectedIndex=homeIndex;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: MyNavigatorBar(onScreenTab: (int index) { setState(() {
+        defaultSelectedIndex=index;
+      }); }, selectedScreen: defaultSelectedIndex,),
+
+      body: IndexedStack(
+        index: defaultSelectedIndex,
+        children: [HomeScreen(), ArticleScreen(), SearchScreen(), MenuScreen()],
+      ),
+    );
+  }
+}
+
 class MyNavigatorBar extends StatelessWidget {
-  const MyNavigatorBar({super.key});
+  final Function(int index) onScreenTab;
+  final int selectedScreen;
+  const MyNavigatorBar({super.key, required this.onScreenTab, required this.selectedScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +83,12 @@ class MyNavigatorBar extends StatelessWidget {
               Expanded(
                 child: _NavigatorItem(
                   iconName: 'Home.png',
-                  activeIconName: 'HoameActive.png',
+                  activeIconName: 'HomeActive.png',
                   title: 'Home',
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
-                  },
+                    onScreenTab(homeIndex);
+                   
+                  }, isActive: selectedScreen==homeIndex,
                 ),
               ),
               Expanded(
@@ -66,10 +97,9 @@ class MyNavigatorBar extends StatelessWidget {
                   activeIconName: 'ArticlesActive.png',
                   title: 'Article',
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ArticleScreen()),
-                    );
-                  },
+                    onScreenTab(articleIndex);
+                    
+                  },isActive: selectedScreen==articleIndex,
                 ),
               ),
               SizedBox(width: 60),
@@ -79,10 +109,8 @@ class MyNavigatorBar extends StatelessWidget {
                   activeIconName: 'SearchActive.png',
                   title: 'Search',
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SearchScreen()),
-                    );
-                  },
+                  onScreenTab(searchIndex);
+                  },isActive: selectedScreen==searchIndex,
                 ),
               ),
               Expanded(
@@ -91,10 +119,8 @@ class MyNavigatorBar extends StatelessWidget {
                   activeIconName: 'MenuActive.png',
                   title: 'Menu',
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MenuScreen()),
-                    );
-                  },
+                  onScreenTab(menuIndex);
+                  },isActive: selectedScreen==menuIndex,
                 ),
               ),
             ],
@@ -109,13 +135,14 @@ class _NavigatorItem extends StatelessWidget {
   final String iconName;
   final String activeIconName;
   final String title;
+  final bool isActive;
   final Function() onTap;
 
   const _NavigatorItem({
     required this.iconName,
     required this.activeIconName,
     required this.title,
-    required this.onTap,
+    required this.onTap, required this.isActive,
   });
 
   @override
@@ -126,8 +153,8 @@ class _NavigatorItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/img/icons/$iconName', width: 32, height: 32),
-          Text(title, style: themeData.textTheme.labelSmall),
+          Image.asset('assets/img/icons/${isActive? activeIconName:iconName}', width: 32, height: 32),
+          Text(title, style: themeData.textTheme.labelSmall!.apply(color: isActive? themeData.colorScheme.primary:themeData.textTheme.bodySmall!.color)),
         ],
       ),
     );
