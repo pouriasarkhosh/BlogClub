@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                   TextButton(onPressed: (){}, child: Text('More',style: themeData.textTheme.displayMedium,))
                 ],),
               ),
-              _Posts()
+              Posts()
             ],
           ),
         ),
@@ -60,7 +60,9 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _Posts extends StatelessWidget {
+class Posts extends StatelessWidget {
+  const Posts({super.key});
+
   
 
   @override
